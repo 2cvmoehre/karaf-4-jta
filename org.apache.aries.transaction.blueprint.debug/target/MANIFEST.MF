@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.apache.aries.transaction.blueprint.debug
+Export-Package: org.apache.aries.transaction.annotations
+Bundle-Name: Debug
+Bundle-Version: 1.0.0.201507192033
+Bundle-ManifestVersion: 2
+
