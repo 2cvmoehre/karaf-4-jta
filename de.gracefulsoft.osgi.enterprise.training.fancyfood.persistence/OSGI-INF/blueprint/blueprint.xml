@@ -1,0 +1,27 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" 
+  xmlns:jpa="http://aries.apache.org/xmlns/jpan/v1.0.0"
+  xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.2.0">
+  <jpa:enable />
+ <!--  <tx:enable-annotations /> -->
+  
+  <!-- not working ? -->
+ <!--  <tx:transaction bean="repository" method="*" value="Required"/>
+  <tx:transaction bean="populator" method="populate" value="Required"/> -->
+  
+	<bean id="repository" class="fancyfoods.persistence.FoodRepositoryImpl" activation="eager">	
+	<tx:transaction method="initData" value="Required"/>
+	<tx:transaction method="createFood" value="Mandatory"/>
+	<tx:transaction method="createCustomer" value="Mandatory"/>
+	</bean>
+
+	<service ref="repository" interface="fancyfoods.food.FoodRepository" />
+
+	<bean id="populator" class="fancyfoods.persistence.RepositoryPopulator"
+		init-method="registerBean" activation="eager" 
+		destroy-method="unregisterBean">
+		<property name="repository" ref="repository" />
+		<tx:transaction method="*" value="Required"/>
+	</bean>	
+	 
+</blueprint>
+

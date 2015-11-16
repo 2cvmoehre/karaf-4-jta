@@ -1,0 +1,36 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+	<persistence-unit name="fancyfoods" transaction-type="JTA">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<!-- 
+		JTA can use non-xa datasource or xa datasource
+		osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=xafancyfood)
+		osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=fancyfood)
+		 -->
+		<jta-data-source>
+		osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=fancyfood)
+		</jta-data-source>
+		<non-jta-data-source>
+		osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=fancyfood)
+		</non-jta-data-source>
+		<!-- <class>fancyfoods.food.Resource</class> -->
+		<class>fancyfoods.persistence.FoodImpl</class>
+		<!-- Thats a class from another bundle ! -->
+		<class>fancyfoods.persistence2.CustomerImpl</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+			<property name="eclipselink.create-ddl-jdbc-file-name"
+				value="createDDL_ddlGeneration.jdbc" />
+			<property name="eclipselink.drop-ddl-jdbc-file-name" value="dropDDL_ddlGeneration.jdbc" />
+			<property name="eclipselink.ddl-generation.output-mode"
+				value="both" />
+			<property name="eclipselink.logging.level" value="FINEST"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <!-- <property name="eclipselink.weaving" value="false"/> -->
+		</properties>
+	</persistence-unit>
+</persistence>

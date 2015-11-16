@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Fancyfood Datasource Bundle
+Bundle-SymbolicName: de.gracefulsoft.osgi.enterprise.training.fancyfood.datasource
+Bundle-Version: 1.0.0.qualifier
+Import-Package: javax.sql, org.apache.derby.jdbc

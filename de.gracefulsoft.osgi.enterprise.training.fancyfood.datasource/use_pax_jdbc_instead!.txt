@@ -1,0 +1,7 @@
+Viel besser als blueprint.xml: pax-jdbc !
+ jdbc:ds-factories
+ Liste der verfügbaren Factories.
+ 
+ Verwendung in org.ops4j.datasource-nnnn.cfg
+ 
+ Siehe cfg-Ordner

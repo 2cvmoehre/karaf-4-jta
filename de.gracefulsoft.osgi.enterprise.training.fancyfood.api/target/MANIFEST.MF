@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: de.gracefulsoft.osgi.enterprise.training.fancyfoo
+ d.api
+Export-Package: fancyfoods.food,fancyfoods.offers
+Bundle-Name: Fancyfood Api
+Bundle-Version: 1.0.0.201511162204
+Bundle-ManifestVersion: 2
+Import-Package: javax.management,javax.persistence,javax.transaction,o
+ rg.eclipse.persistence.jpa,org.apache.aries.transaction.annotations,o
+ rg.eclipse.persistence.internal.weaving,org.eclipse.persistence.descr
+ iptors.changetracking,org.eclipse.persistence.indirection,org.eclipse
+ .persistence.internal.descriptors,org.eclipse.persistence.internal.id
+ entitymaps,org.eclipse.persistence.queries,org.eclipse.persistence.se
+ ssions,org.eclipse.persistence.internal.jpa.rs.metadata.model
+

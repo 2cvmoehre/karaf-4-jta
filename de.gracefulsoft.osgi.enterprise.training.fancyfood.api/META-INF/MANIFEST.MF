@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Fancyfood Api
+Bundle-SymbolicName: de.gracefulsoft.osgi.enterprise.training.fancyfood.api
+Bundle-Version: 1.0.0.qualifier
+Import-Package: javax.management,
+ javax.persistence,
+ javax.transaction,
+ org.eclipse.persistence.jpa,
+ org.apache.aries.transaction.annotations,
+ org.eclipse.persistence.internal.weaving,
+ org.eclipse.persistence.descriptors.changetracking,
+ org.eclipse.persistence.indirection,
+ org.eclipse.persistence.internal.descriptors,
+ org.eclipse.persistence.internal.identitymaps,
+ org.eclipse.persistence.queries,
+ org.eclipse.persistence.sessions,
+ org.eclipse.persistence.internal.jpa.rs.metadata.model
+Export-Package: fancyfoods.food,
+ fancyfoods.offers

@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: de.gracefulsoft.osgi.enterprise.training.fancyfoo
+ d.facade
+Export-Package: fancyfoods.offers.impl
+Bundle-Name: Fancyfood Facade
+Bundle-Version: 1.0.0.201511162204
+Bundle-ManifestVersion: 2
+Import-Package: fancyfoods.food,fancyfoods.offers
+

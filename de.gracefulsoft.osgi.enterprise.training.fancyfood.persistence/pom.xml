@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>de.gracefulsoft.osgi.enterprise</groupId>
+		<artifactId>de.gracefulsoft.osgi.enterprise</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../de.gracefulsoft.osgi.enterprise</relativePath>
+	</parent>
+	
+	<groupId>de.gracefulsoft.osgi.enterprise.training.fancyfood.persistence</groupId>
+	<artifactId>de.gracefulsoft.osgi.enterprise.training.fancyfood.persistence</artifactId>
+	<packaging>eclipse-plugin</packaging>
+	
+</project>

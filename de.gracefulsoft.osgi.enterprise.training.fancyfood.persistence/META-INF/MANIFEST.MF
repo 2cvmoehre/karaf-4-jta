@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Fancyfood Persistence Bundle
+Bundle-SymbolicName: de.gracefulsoft.osgi.enterprise.training.fancyfood.persistence
+Bundle-Version: 1.0.0.qualifier
+Meta-Persistence: META-INF/persistence.xml
+Import-Package: fancyfoods.food,
+ fancyfoods.persistence2,
+ javax.management,
+ javax.persistence,
+ javax.transaction,
+ org.apache.aries.transaction.annotations,
+ org.eclipse.persistence.jpa
+Export-Package: fancyfoods.persistence

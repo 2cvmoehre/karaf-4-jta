@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<artifacts size='1'>
+  <artifact classifier='osgi.bundle' id='de.gracefulsoft.osgi.enterprise.training.fancyfood.api' version='1.0.0.201511162204'>
+    <properties size='5'>
+      <property name='artifact.size' value='5852'/>
+      <property name='download.size' value='5852'/>
+      <property name='maven-groupId' value='de.gracefulsoft.osgi.enterprise.training.fancyfood.api'/>
+      <property name='maven-artifactId' value='de.gracefulsoft.osgi.enterprise.training.fancyfood.api'/>
+      <property name='maven-version' value='1.0.0-SNAPSHOT'/>
+    </properties>
+  </artifact>
+</artifacts>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<units size='1'>
+  <unit id='de.gracefulsoft.osgi.enterprise.training.fancyfood.facade' version='1.0.0.201511162204' singleton='false'>
+    <update id='de.gracefulsoft.osgi.enterprise.training.fancyfood.facade' range='[0.0.0,1.0.0.201511162204)' severity='0'/>
+    <properties size='4'>
+      <property name='org.eclipse.equinox.p2.name' value='Fancyfood Facade'/>
+      <property name='maven-groupId' value='de.gracefulsoft.osgi.enterprise.training.fancyfood.facade'/>
+      <property name='maven-artifactId' value='de.gracefulsoft.osgi.enterprise.training.fancyfood.facade'/>
+      <property name='maven-version' value='1.0.0-SNAPSHOT'/>
+    </properties>
+    <provides size='4'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='de.gracefulsoft.osgi.enterprise.training.fancyfood.facade' version='1.0.0.201511162204'/>
+      <provided namespace='osgi.bundle' name='de.gracefulsoft.osgi.enterprise.training.fancyfood.facade' version='1.0.0.201511162204'/>
+      <provided namespace='java.package' name='fancyfoods.offers.impl' version='0.0.0'/>
+      <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+    </provides>
+    <requires size='2'>
+      <required namespace='java.package' name='fancyfoods.food' range='0.0.0'/>
+      <required namespace='java.package' name='fancyfoods.offers' range='0.0.0'/>
+    </requires>
+    <artifacts size='1'>
+      <artifact classifier='osgi.bundle' id='de.gracefulsoft.osgi.enterprise.training.fancyfood.facade' version='1.0.0.201511162204'/>
+    </artifacts>
+    <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+    <touchpointData size='1'>
+      <instructions size='1'>
+        <instruction key='manifest'>
+          Bundle-SymbolicName: de.gracefulsoft.osgi.enterprise.training.fancyfood.facade&#xA;Bundle-Version: 1.0.0.201511162204&#xA;
+        </instruction>
+      </instructions>
+    </touchpointData>
+  </unit>
+</units>
