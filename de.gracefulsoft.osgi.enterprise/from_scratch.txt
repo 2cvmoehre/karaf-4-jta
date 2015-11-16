@@ -1,0 +1,106 @@
+step by step:
+- extract karaf 4 zip
+- start karaf /bin/karaf debug
+
+Features installed:
+aries-proxy                   | 4.0.0                            |          | Started     | standard-4.0.0           | Aries Proxy
+aries-blueprint               | 4.0.0                            | x        | Started     | standard-4.0.0           | Aries Blueprint
+feature                       | 4.0.0                            | x        | Started     | standard-4.0.0           | Features Support
+shell                         | 4.0.0                            | x        | Started     | standard-4.0.0           | Karaf Shell
+shell-compat                  | 4.0.0                            | x        | Started     | standard-4.0.0           | Karaf Shell Compatibility
+deployer                      | 4.0.0                            | x        | Started     | standard-4.0.0           | Karaf Deployer
+bundle                        | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide Bundle support
+config                        | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide OSGi ConfigAdmin support
+diagnostic                    | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide Diagnostic support
+instance                      | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide Instance support
+jaas                          | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide JAAS support
+log                           | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide Log support
+package                       | 4.0.0                            | x        | Started     | standard-4.0.0           | Package commands and mbeans
+service                       | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide Service support
+system                        | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide System support
+kar                           | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide KAR (KARaf archive) support
+ssh                           | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide a SSHd server on Karaf
+management                    | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide a JMX MBeanServer and a set of MBeans in
+wrap                          | 0.0.0                            | x        | Started     | standard-4.0.0           | Wrap URL handler
+
+add required features for JPA and JTA using EclipseLink and a MySQL database
+
+feature:install jndi
+feature:install jdbc
+feature:repo-add mvn:org.ops4j.pax.jdbc/pax-jdbc-features/0.6.0/xml/features
+feature:install pax-jdbc
+feature:install pax-jdbc-config
+feature:install pax-jdbc-mysql
+feature:install pax-jdbc-pool-dbcp2
+feature:install jpa
+feature:install transaction
+feature:install eclipselink
+
+Installed Features now shows:
+pax-jdbc-spec                 | 0.6.0                            |          | Started     | org.ops4j.pax.jdbc-0.6.0 | Provides OSGi JDBC Service spec
+pax-jdbc                      | 0.6.0                            | x        | Started     | org.ops4j.pax.jdbc-0.6.0 | Provides JDBC Service support
+pax-jdbc-config               | 0.6.0                            | x        | Started     | org.ops4j.pax.jdbc-0.6.0 | Provides JDBC Config support
+pax-jdbc-mysql                | 0.6.0                            | x        | Started     | org.ops4j.pax.jdbc-0.6.0 | Provides JDBC MySQL DataSourceFactory
+pax-jdbc-pool-dbcp2           | 0.6.0                            | x        | Started     | org.ops4j.pax.jdbc-0.6.0 | Provides JDBC Pooling DataSourceFactory
+aries-proxy                   | 4.0.0                            |          | Started     | standard-4.0.0           | Aries Proxy
+aries-blueprint               | 4.0.0                            | x        | Started     | standard-4.0.0           | Aries Blueprint
+feature                       | 4.0.0                            | x        | Started     | standard-4.0.0           | Features Support
+shell                         | 4.0.0                            | x        | Started     | standard-4.0.0           | Karaf Shell
+shell-compat                  | 4.0.0                            | x        | Started     | standard-4.0.0           | Karaf Shell Compatibility
+deployer                      | 4.0.0                            | x        | Started     | standard-4.0.0           | Karaf Deployer
+bundle                        | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide Bundle support
+config                        | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide OSGi ConfigAdmin support
+diagnostic                    | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide Diagnostic support
+instance                      | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide Instance support
+jaas                          | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide JAAS support
+log                           | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide Log support
+package                       | 4.0.0                            | x        | Started     | standard-4.0.0           | Package commands and mbeans
+service                       | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide Service support
+system                        | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide System support
+kar                           | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide KAR (KARaf archive) support
+ssh                           | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide a SSHd server on Karaf
+management                    | 4.0.0                            | x        | Started     | standard-4.0.0           | Provide a JMX MBeanServer and a set of MBeans in
+wrap                          | 0.0.0                            | x        | Started     | standard-4.0.0           | Wrap URL handler
+transaction                   | 1.1.1                            | x        | Started     | enterprise-4.0.0         | OSGi Transaction Manager
+persistence-api               | 2.1.0                            |          | Started     | enterprise-4.0.0         | Persistence API
+jpa                           | 2.0.0                            | x        | Started     | enterprise-4.0.0         | OSGi Persistence Container
+eclipselink                   | 2.6.0                            | x        | Started     | enterprise-4.0.0         | Eclipselink JPA persistence engine support
+jndi                          | 4.0.0                            | x        | Started     | enterprise-4.0.0         | OSGi Service Registry JNDI access
+
+Nun die datasource configuration:
+Beide cfg Dateien in den cfg-Ordner von Karaf kopieren.
+Test mit jdbc:ds-list
+karaf@root()> jdbc:ds-list
+Name        | Product | Version    | URL                                   | Status
+-----------------------------------------------------------------------------------
+xafancyfood | MySQL   | 5.6.25-log | jdbc:mysql://localhost:3306/fancyfood | OK
+fancyfood   | MySQL   | 5.6.25-log | jdbc:mysql://localhost:3306/fancyfood | OK
+Und im JNDI:
+karaf@root()> jndi:names
+JNDI Name                | Class Name
+-----------------------------------------------------------------------------
+osgi:service/xafancyfood | org.apache.commons.dbcp2.managed.ManagedDataSource
+osgi:service/fancyfood   | org.apache.commons.dbcp2.PoolingDataSource
+osgi:service/jndi        | org.apache.karaf.jndi.internal.JndiServiceImpl
+
+Alles deployen.
+Erster Versuch:
+[EL Info]: 2015-11-15 21:20:40.682--ServerSession(1304506027)--Thread(Thread[RMI TCP Connection(18)-192.168.56.1,5,RMI Runtime])--/bundle://92.0:1/_fancyfoods logout successful
+[EL Severe]: 2015-11-15 21:20:40.698--ServerSession(1304506027)--Thread(Thread[RMI TCP Connection(18)-192.168.56.1,5,RMI Runtime])--java.lang.NoSuchMethodError: fancyfoods.food.Res
+ource.<init>(Lorg/eclipse/persistence/internal/descriptors/PersistenceObject;)V
+        at fancyfoods.persistence.FoodImpl.<init>(FoodImpl.java)
+        at fancyfoods.persistence.FoodImpl._persistence_new(FoodImpl.java)
+        at org.eclipse.persistence.internal.descriptors.PersistenceObjectInstantiationPolicy.buildNewInstance(PersistenceObjectInstantiationPolicy.java:33)
+        at org.eclipse.persistence.descriptors.ClassDescriptor.selfValidationAfterInitialization(ClassDescriptor.java:4230)
+
+Das ist ein Weaving-Problem.
+https://github.com/ancoron/osgi-tests/wiki/Shared-JPA-entity-classes-using-OSGi-in-GlassFish-3.1
+ EclipseLink uses weaving to enhance Plain Old Java Object
+Immerhin kein Classnotfound Problem mehr.
+Genaue Ursache siehe Link.
+Option 1 abschalten (Performance-Impact ?): ok
+Option 2 static weaving: siehe fancyfood.api pom.xm: ok
+
+Transaktionssteuerung: siehe blueprint.xml
+
+

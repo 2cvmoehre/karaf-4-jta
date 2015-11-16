@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.gracefulsoft.osgi.enterprise</groupId>
+	<artifactId>de.gracefulsoft.osgi.enterprise</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>0.22.0</version>
+				<extensions>true</extensions>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>download.eclipse.org.releases.kepler</id>
+			<url>http://download.eclipse.org/releases/kepler</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>oss.sonatype.org</id>
+			<name>OSS Sonatype Staging</name>
+			<url>https://oss.sonatype.org/content/groups/staging</url>
+		</repository>
+		<repository>
+			<id>EclipseLink</id>
+			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
+		</repository>
+		<repository>
+			<id>Maven Central</id>
+			<url>http://repo1.maven.org/maven2/</url>
+		</repository>
+	</repositories>
+
+	<modules>
+		<module>../de.gracefulsoft.osgi.enterprise.training.fancyfood.api</module>
+		<!-- datasource not necessary, use pax-jdbc ! -->
+		<!-- <module>../de.gracefulsoft.osgi.enterprise.training.fancyfood.datasource</module> -->
+		<!-- <module>../de.gracefulsoft.osgi.enterprise.training.fancyfood.department.chocolate</module> -->
+		<module>../de.gracefulsoft.osgi.enterprise.training.fancyfood.facade</module>
+		<module>../de.gracefulsoft.osgi.enterprise.training.fancyfood.persistence</module>
+		<module>../de.gracefulsoft.osgi.enterprise.training.fancyfood.persistence2</module>
+		<!-- <module>../de.gracefulsoft.osgi.enterprise.training.fancyfood.web</module> -->
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.servicemix.bundles</groupId>
+			<artifactId>org.apache.servicemix.bundles.derby</artifactId>
+			<version>10.9.1.0_1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>2.6.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.persistence</groupId>
+					<artifactId>commonj.sdo</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.jpa</artifactId>
+			<version>2.6.0</version>
+		</dependency>
+	</dependencies>
+</project>

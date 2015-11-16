@@ -1,0 +1,184 @@
+Mavenize, Tycho plugin Basis-POM
+C:\eclipse_kepler_rcp\workspace\de.gracefulsoft.osgi.enterprise.training>mvn org.eclipse.tycho:tycho-pomgenerator-plugin:generate-poms -DgroupId=de.gracefulsoft
+.osgi.enterprise.training
+
+
+ Missing requirement: de.gracefulsoft.osgi.enterprise.training 1.0.0.qualifier requires 'package javax.servlet 2.6.0' but it could not be found
+ Target Plattform http://wiki.eclipse.org/Tycho/Dependency_Resolution_Troubleshooting
+ 
+ <repository>
+      <url>http://download.eclipse.org/releases/kepler</url>
+      <layout>p2</layout>
+     </repository> 
+     
+Funktioniert gut.
+
+build.properties anpassen damit alles mit exportiert wird (web.xml !) !
+Das gilt auch für die blueprint xml  in OSGI-INF !!!
+es braucht etwas in dem sinn wenn OSGI-INF da ist mitpacken.
+genau die WEB-INF
+
+m2e connector geschiss:
+https://www.eclipse.org/forums/index.php/t/860366/
+http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.8.0/N/LATEST/
+danach noch maven->update project
+
+Wenn man erst einmal ein parent pom hat, ist die Sache recht einfach.
+Mit Tycho ist das jeweilige pom.xml sehr einfach.
+Auch das parent.pom ist sehr simpel, so lässts sich leben.
+
+Neues Projekt anlegen: New Plugin Project
+Dann ein pom.xml dazu mit folgendem Inhalt:
+
+
+für JNDI muss das feature mit rein
+feature:install jndi
+
+Kepler und Tycho im offline mode version 0.23 funktioniert wieder nicht, 0.22 gehts noch
+Bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=357357
+
+feature:repo-add mvn:org.ops4j.pax.jdbc/pax-jdbc-features/0.5.0/xml/features
+feature:install transaction jndi pax-jdbc-derby pax-jdbc-pool-dbcp2 pax-jdbc-config
+service:list DataSourceFactory
+
+feature:install pax-jdbc
+zeigt noch einen haufen weiterer jdbc treiber
+
+******
+Lazy JavaEE programmers guide to OSGi
+vehement antagonist of OSGi 
+
+Lets define lazy in our context 
+- efficient solutions for day-to-day problems
+- not spending time solving problems caused by the framework, but use
+a framework to solve our domain specific problems: right tool to the job
+
+What we excpect from a framework:
+on short and maximal mid-term, benefits must outweight the pain, otherwise use something else.
+thats the road of EJB2.1 went down.
+if you get continously begin to think life should be easier, because you solved a problem in another
+way before, maybe with another language or just have certain feeling in your guts
+(which may be well-grounded after several years of experience in the field), its 
+either time to change the framework, change the project or try to find some ways to
+get the framework do what you want the way you want.
+in the end thats what its all about - the whole technology stacks thrown at you
+or riding right over you were once meant or at least should have been meant to help
+solve your functional requirements. which is hard enough anyway and helped by common desparation
+to the birth of scrum and other agile (voodoo) management strategies.
+but knowing to know about nothing is another story, so we will focus in how to make life
+easier using OSGi.
+
+why should i use it ?
+thats a valid question.
+if you come from an JEE background, another question might be 
+whats the additional benefit compared to enterprise java and does it justify the effort ?
+
+ein package finden: z.b. javax persistence export:
+bundle:headers javax.persistence
+das kann man dann nehmen und zum eclipse target hinzufügen
+
+offensichtliches problem:
+wie bekommen wir den entitymanager injected ?
+das datasource bundle erzeugt wie der name schon sagt nur datasourcen.
+funktioniert auch:
+
+bundle:services 171
+Fancyfood JPA Bundle (171) provides:
+------------------------------------
+[javax.sql.XADataSource]
+[javax.sql.DataSource]
+[org.osgi.service.blueprint.container.BlueprintContainer]
+karaf@root()> bundle:requirements 171
+de.gracefulsoft.osgi.enterprise.training.fancyfood.datasource [171] requires:
+-----------------------------------------------------------------------------
+osgi.wiring.package; (osgi.wiring.package=javax.sql) resolved by:
+   osgi.wiring.package; javax.sql 0.0.0 from org.apache.felix.framework [0]
+osgi.wiring.package; (osgi.wiring.package=org.apache.derby.jdbc) resolved by:
+   osgi.wiring.package; org.apache.derby.jdbc 0.0.0 from derby [155]
+   
+
+
+bundle:headers | grep org.apache.aries.jpa
+
+Bundle-Activator = org.apache.aries.jpa.eclipselink.adapter.Activator
+Bundle-SymbolicName = org.apache.aries.jpa.eclipselink.adapter
+        org.apache.aries.jpa.eclipselink.adapter;uses:="javax.persistence,javax.persistence.spi,javax.sql,org.osgi.framework";version=2.0.0,
+        org.apache.aries.jpa.eclipselink.adapter.platform;
+Bundle-SymbolicName = org.apache.aries.jpa.api
+        org.apache.aries.jpa.supplier;version=1.0.0,
+        org.apache.aries.jpa.template;version=1.0.0
+Bundle-Activator = org.apache.aries.jpa.blueprint.impl.Activator
+Bundle-SymbolicName = org.apache.aries.jpa.blueprint
+        org.apache.aries.jpa.supplier;version="[1.0,2)",
+Bundle-Activator = org.apache.aries.jpa.container.impl.Activator
+Bundle-SymbolicName = org.apache.aries.jpa.container
+Bundle-Activator = org.apache.aries.jpa.support.osgi.impl.Activator
+Bundle-SymbolicName = org.apache.aries.jpa.support
+        org.apache.aries.jpa.supplier;version="[1.0,2)",
+        org.apache.aries.jpa.template;version="[1.0,2)",
+ 
+mit dem symbolic-name die bundlenummer finden:
+bundle:info <name>
+
+kein namespace handler für aries mit jpa !
+xmlns:jpa="http://aries.apache.org/xmlns/jpan/v1.0.0" wtf?
+
+War alles korrekt soweit, Schreibfehler bei persistence.xml !!!!
+
+Nächstes Problem:
+2015-07-14 20:05:57,688 | INFO  | e-karaf-4/deploy | DataSourceTracker                | 174 - org.apache.aries.jpa.container - 2.0.0 | Tracking DataSource for punit fancyfoods with
+ filter (&(objectClass=javax.sql.DataSource)(osgi.jndi.service.name=osgi:service/javax.sql.XADataSource/(osgi.jndi.service.name=jdbc/xafancyfoodsdb)))
+ERROR: Bundle org.apache.aries.jpa.container [174] EventDispatcher: Error during dispatch. (java.lang.IllegalArgumentException: org.osgi.framework.InvalidSyntaxException: Only one
+top-level operation allowed: (&(objectClass=javax.sql.DataSource)(osgi.jndi.service.name=osgi:service/javax.sql.XADataSource/(osgi.jndi.service.name=jdbc/xafancyfoodsdb))))
+java.lang.IllegalArgumentException: org.osgi.framework.InvalidSyntaxException: Only one top-level operation allowed: (&(objectClass=javax.sql.DataSource)(osgi.jndi.service.name=osg
+i:service/javax.sql.XADataSource/(osgi.jndi.service.name=jdbc/xafancyfoodsdb)))
+        at org.apache.aries.jpa.container.impl.DataSourceTracker.createFilter(DataSourceTracker.java:64)
+        
+        
+Problem scheint das Naming zu sein.
+jndi:names scheint zu helfen:
+karaf@root()> jndi:names
+JNDI Name                        | Class Name
+---------------------------------------------------------------------------------
+osgi:service/jdbc/xafancyfoodsdb | org.apache.derby.jdbc.EmbeddedXADataSource
+osgi:service/jndi                | org.apache.karaf.jndi.internal.JndiServiceImpl
+osgi:service/jdbc/fancyfoodsdb   | org.apache.derby.jdbc.EmbeddedDataSource
+
+karaf@root()> 2015-07-14 20:50:08,879 | INFO  | e-karaf-4/deploy | fileinstall                      | 4 - org.apache.felix.fileinstall - 3.5.0 | Updating bundle de.gracefulsoft.osg
+i.enterprise.training.fancyfood.persistence / 1.0.0.201507141803
+2015-07-14 20:50:08,881 | INFO  | e-karaf-4/deploy | BlueprintExtender                | 12 - org.apache.aries.blueprint.core - 1.4.3 | Destroying BlueprintContainer for bundle de.g
+racefulsoft.osgi.enterprise.training.fancyfood.persistence
+2015-07-14 20:50:09,030 | INFO  | e-karaf-4/deploy | PersistenceBundleTracker         | 174 - org.apache.aries.jpa.container - 2.0.0 | Found persistence unit fancyfoods in bundle d
+e.gracefulsoft.osgi.enterprise.training.fancyfood.persistence with provider org.eclipse.persistence.jpa.PersistenceProvider.
+2015-07-14 20:50:09,033 | INFO  | e-karaf-4/deploy | PersistenceProviderTracker       | 174 - org.apache.aries.jpa.container - 2.0.0 | Found provider for fancyfoods org.eclipse.per
+sistence.jpa.PersistenceProvider
+[EL Finest]: 2015-07-14 20:50:09.039--ServerSession(637407746)--Thread(Thread[fileinstall-C:\etc\apache-karaf-4/deploy,5,Configuration Admin Service])--property=eclipselink.logging
+.level.sql; value=FINE; translated value=FINE
+[EL Config]: 2015-07-14 20:50:09.05--ServerSession(637407746)--Thread(Thread[fileinstall-C:\etc\apache-karaf-4/deploy,5,Configuration Admin Service])--The access type for the persi
+stent class [class fancyfoods.persistence.FoodImpl] is set to [FIELD].
+[EL Config]: 2015-07-14 20:50:09.056--ServerSession(637407746)--Thread(Thread[fileinstall-C:\etc\apache-karaf-4/deploy,5,Configuration Admin Service])--The table name for entity [c
+lass fancyfoods.persistence.FoodImpl] is being defaulted to: FOOD.
+[EL Config]: 2015-07-14 20:50:09.06--ServerSession(637407746)--Thread(Thread[fileinstall-C:\etc\apache-karaf-4/deploy,5,Configuration Admin Service])--The column name for element [
+quantityInStock] is being defaulted to: QUANTITYINSTOCK.
+[EL Config]: 2015-07-14 20:50:09.062--ServerSession(637407746)--Thread(Thread[fileinstall-C:\etc\apache-karaf-4/deploy,5,Configuration Admin Service])--The column name for element
+[price] is being defaulted to: PRICE.
+[EL Config]: 2015-07-14 20:50:09.065--ServerSession(637407746)--Thread(Thread[fileinstall-C:\etc\apache-karaf-4/deploy,5,Configuration Admin Service])--The column name for element
+[name] is being defaulted to: NAME.
+2015-07-14 20:50:09,069 | INFO  | e-karaf-4/deploy | JPAWeavingHook                   | 174 - org.apache.aries.jpa.container - 2.0.0 | Adding transformer org.eclipse.persistence.in
+ternal.jpa.weaving.PersistenceWeaver
+[EL Warning]: 2015-07-14 20:50:09.073--Thread(Thread[fileinstall-C:\etc\apache-karaf-4/deploy,5,Configuration Admin Service])--session_manager_no_partition
+2015-07-14 20:50:09,075 | WARN  | e-karaf-4/deploy | PersistenceProviderTracker       | 174 - org.apache.aries.jpa.container - 2.0.0 | Persistence unit fancyfoods refers to a non O
+SGi service DataSource
+2015-07-14 20:50:09,137 | INFO  | e-karaf-4/deploy | fileinstall                      | 4 - org.apache.felix.fileinstall - 3.5.0 | Started bundle: file:/C:/etc/apache-karaf-4/deplo
+y/de.gracefulsoft.osgi.enterprise.training.fancyfood.persistence-1.0.0-SNAPSHOT.jar
+
+
+Schon besser
+
+Noch besser: pax-jdbc
+ jdbc:ds-factories
+ Liste der verfügbaren Factories.
+ 
+ Verwendung in org.ops4j.datasource-nnnn.cfg
+ 
+ 
